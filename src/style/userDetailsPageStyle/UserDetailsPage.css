@@ -1,0 +1,7 @@
+.userDetailsPage {
+  width: clamp(230px, 50vw, 1500px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}

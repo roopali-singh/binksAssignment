@@ -1,0 +1,8 @@
+.userInfo {
+  margin-bottom: clamp(5px, 2vmax, 40px);
+  white-space: pre-wrap;
+}
+
+.userInfo__title {
+  font-weight: bold;
+}

@@ -1,0 +1,20 @@
+.user {
+  text-decoration: none;
+  padding: clamp(10px, 0.8vmax, 30px);
+  margin: clamp(10px, 0.5vmax, 30px);
+  border: 2px solid rgb(189, 188, 188);
+  cursor: pointer;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #fb3569, #73a6f7);
+  border-image-slice: 1;
+  color: grey;
+  transition: color 0.3s ease-out;
+}
+
+.user__name--first {
+  margin: 0 10px;
+}
+
+.user:hover {
+  color: black;
+}

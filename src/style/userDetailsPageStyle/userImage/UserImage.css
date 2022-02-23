@@ -1,0 +1,17 @@
+.userImage {
+  border: 2px solid rgb(189, 188, 188);
+  border-radius: 50%;
+  height: 100%;
+  padding: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(10px, 4vmax, 80px);
+}
+
+.userImage__img {
+  clip-path: circle(50%);
+  /* border-radius: 50%; */
+  width: 100%;
+  object-fit: cover;
+}
