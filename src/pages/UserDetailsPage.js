@@ -9,14 +9,17 @@ import useAxios from "../utils/useAxios";
 
 function UserDetailsPage() {
   const { username } = useParams();
-  const user = useAxios(FETCH_USER_API_BASE_URL);
-  console.log(user?.results);
+  const { userData } = useAxios({
+    url: FETCH_USER_API_BASE_URL,
+    pagination: false,
+  });
+  // console.log(userData?.results);
 
   return (
     <FlexColumnLayout>
       <PageTitle title="User Details" />
 
-      {user?.results?.map((user) => (
+      {userData?.results?.map((user) => (
         <main className="userDetailsPage" key={user?.login?.username}>
           <UserImage picture={user?.picture} />
           <UserInfo title="Name">

@@ -1,0 +1,16 @@
+.button {
+  border: 2px solid var(--light-grey);
+  border-radius: 2px;
+  background: var(--primary-gradient);
+  padding: 0.5em;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: clamp(10px, 0.5vmax, 30px);
+  cursor: pointer;
+  white-space: pre-wrap;
+}
+
+.fullWidth {
+  width: 100%;
+}

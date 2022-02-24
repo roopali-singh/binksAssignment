@@ -1,0 +1,12 @@
+.pagination {
+  margin-bottom: clamp(10px, 1vmax, 30px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination__value {
+  width: max-content;
+  margin: 0 10px;
+  white-space: pre-wrap ;
+}

@@ -1,30 +1,37 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-function useAxios(url) {
-  const cache = useRef({});
-  const [data, setData] = useState(null);
+function useAxios({ url, pagination }) {
+  const [page, setPage] = useState(1);
+  const [userData, setUserData] = useState(null);
+
+  const fetchPaginationData = async () => {
+    try {
+      const { data } = await axios.get(`${url}&page=${page}`);
+      setUserData(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const fetchData = async () => {
-    if (cache.current[url]) {
-      // console.log(cache.current);
-      // console.log(cache.current[url]);
-      setData(cache.current[url]);
-    } else {
-      try {
-        const { data } = await axios.get(url);
-        setData(data);
-      } catch (error) {
-        console.log(error.message);
-      }
+    try {
+      const { data } = await axios.get(url);
+      setUserData(data);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (pagination) {
+      fetchPaginationData();
+    } else {
+      fetchData();
+    }
+  }, [page]);
 
-  return data;
+  return { userData, page, setPage };
 }
 
 export default useAxios;

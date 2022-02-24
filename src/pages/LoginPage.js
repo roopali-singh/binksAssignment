@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../components/sharedComponents/Button";
 import FlexColumnLayout from "../components/sharedComponents/FlexColumnLayout";
 import GradientBorder from "../components/sharedComponents/GradientBorder";
 import PageTitle from "../components/sharedComponents/PageTitle";
@@ -41,22 +42,19 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
+          <Button
+            fullWidth
+            className="margin-bottom loginPage__btn"
+            title="Fill Random User Details"
+            handleClick={userDetailsHandler}
+          />
 
-          <button
-            type="submit"
-            className="loginBtn"
-            onClick={userDetailsHandler}
-          >
-            Fill Random User Details
-          </button>
-
-          <button
-            type="submit"
-            className="loginBtn margin-bottom"
-            onClick={loginHandler}
-          >
-            LOGIN
-          </button>
+          <Button
+            fullWidth
+            className="loginPage__btn"
+            title="LOGIN"
+            handleClick={loginHandler}
+          />
         </main>
       </GradientBorder>
     </FlexColumnLayout>
