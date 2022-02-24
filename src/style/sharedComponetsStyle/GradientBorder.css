@@ -1,0 +1,7 @@
+.gradientBorder {
+  padding: clamp(10px, 0.8vmax, 30px);
+  margin: clamp(10px, 0.5vmax, 30px);
+  border: 2px solid var(--light-grey);
+  border-image: var(--primary-gradient);
+  border-image-slice: 1;
+}

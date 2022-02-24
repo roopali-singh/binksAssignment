@@ -1,6 +1,6 @@
 .pageTitle {
-  background: linear-gradient(to right, #fb3569, #73a6f7);
-  border: 2px solid rgb(189, 188, 188);
+  background: var(--primary-gradient);
+  border: 2px solid var(--light-grey);
   border-radius: 10% / 50%;
   padding: clamp(10px, 0.8vmax, 30px);
   margin: clamp(10px, 4vmax, 80px);
