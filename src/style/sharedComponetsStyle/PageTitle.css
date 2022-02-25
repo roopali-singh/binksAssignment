@@ -4,8 +4,16 @@
   border-radius: 10% / 50%;
   padding: clamp(10px, 0.8vmax, 30px);
   margin: clamp(10px, 4vmax, 80px);
+  /* color: #fb3569; */
+  white-space: pre-wrap;
+}
+
+.nonIosDevice {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  white-space: pre-wrap;
+}
+
+.iosDevice {
+  color: white;
 }
