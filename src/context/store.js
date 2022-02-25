@@ -5,7 +5,9 @@ import { userListReducer, userDetailsReducer } from "./reducers/userReducer";
 const initialState = {
   userListReducer: {
     loading: false,
-    userList: [],
+    userList: localStorage.getItem("binksUserList")
+      ? JSON.parse(localStorage.getItem("binksUserList"))
+      : [],
     error: false,
   },
   userDetailsReducer: {

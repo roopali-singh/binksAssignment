@@ -12,7 +12,7 @@ import {
   USER_SEED,
 } from "../constants/userConstants";
 
-export const fetchUserList = (page) => async (dispatch) => {
+export const fetchUserList = (page) => async (dispatch, getState) => {
   dispatch({
     type: USER_LIST_REQUEST,
   });
@@ -23,6 +23,11 @@ export const fetchUserList = (page) => async (dispatch) => {
     );
 
     dispatch({ type: USER_LIST_SUCCESS, payload: data?.results });
+
+    localStorage.setItem(
+      "binksUserList",
+      JSON.stringify(getState().userListReducer.userList)
+    );
   } catch (error) {
     dispatch({
       type: USER_LIST_FAIL,
