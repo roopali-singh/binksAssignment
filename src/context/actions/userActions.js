@@ -34,28 +34,28 @@ export const fetchUserList = (page) => async (dispatch) => {
   }
 };
 
+const findUserWithUsername = (userList, username) => {
+  return userList?.find((user) => user?.login?.username === username);
+};
+
 export const fetchUserDetails = (username) => async (dispatch, getState) => {
   dispatch({
     type: USER_DETAILS_REQUEST,
   });
-  try {
-    const userList = await getState().userListReducer.userList;
 
-    const userDetails = await userList?.find(
-      (user) => user?.login?.username === username
-    );
+  const userList = await getState().userListReducer.userList;
 
+  const userDetails = await findUserWithUsername(userList, username);
+
+  if (userDetails) {
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: userDetails,
     });
-  } catch (error) {
+  } else {
     dispatch({
       type: USER_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: "User Not Found",
     });
   }
 };

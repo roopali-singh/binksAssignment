@@ -22,26 +22,29 @@ function UserDetailsPage() {
     <FlexColumnLayout>
       <PageTitle title="User Details" />
 
-      {loading && <div>Loading...</div>}
-      {error && <strong>{error}</strong>}
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h2>{error}</h2>
+      ) : (
+        <main className="userDetailsPage">
+          <UserImage picture={userDetails?.picture} />
 
-      <main className="userDetailsPage">
-        <UserImage picture={userDetails?.picture} />
-
-        <UserInfo title="Name">
-          {userDetails?.name?.title}. {userDetails?.name?.first}{" "}
-          {userDetails?.name?.last}
-        </UserInfo>
-        <UserInfo title="Username">{username}</UserInfo>
-        <UserInfo title="Email">{userDetails?.email}</UserInfo>
-        <UserInfo title="Age">{userDetails?.dob?.age}</UserInfo>
-        <UserInfo title="Phone">{userDetails?.phone}</UserInfo>
-        <UserInfo title="Address">
-          {userDetails?.location?.street?.number}{" "}
-          {userDetails?.location?.street?.name}, {userDetails?.location?.city},{" "}
-          {userDetails?.location?.state}, {userDetails?.location?.country}
-        </UserInfo>
-      </main>
+          <UserInfo title="Name">
+            {userDetails?.name?.title}. {userDetails?.name?.first}{" "}
+            {userDetails?.name?.last}
+          </UserInfo>
+          <UserInfo title="Username">{username}</UserInfo>
+          <UserInfo title="Email">{userDetails?.email}</UserInfo>
+          <UserInfo title="Age">{userDetails?.dob?.age}</UserInfo>
+          <UserInfo title="Phone">{userDetails?.phone}</UserInfo>
+          <UserInfo title="Address">
+            {userDetails?.location?.street?.number}{" "}
+            {userDetails?.location?.street?.name}, {userDetails?.location?.city}
+            , {userDetails?.location?.state}, {userDetails?.location?.country}
+          </UserInfo>
+        </main>
+      )}
     </FlexColumnLayout>
   );
 }

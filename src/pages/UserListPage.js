@@ -24,18 +24,21 @@ function UserListPage() {
 
       <Pagination page={page} changePage={setPage} />
 
-      {loading && <div>Loading...</div>}
-      {error && <strong>{error}</strong>}
-
-      <main className="userListPage__userList">
-        {userList?.map((user) => (
-          <User
-            key={user?.login?.username}
-            name={user?.name}
-            username={user?.login?.username}
-          />
-        ))}
-      </main>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h2>{error}</h2>
+      ) : (
+        <main className="userListPage__userList">
+          {userList?.map((user) => (
+            <User
+              key={user?.login?.username}
+              name={user?.name}
+              username={user?.login?.username}
+            />
+          ))}
+        </main>
+      )}
     </FlexColumnLayout>
   );
 }
