@@ -1,40 +1,47 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import FlexColumnLayout from "../components/sharedComponents/FlexColumnLayout";
 import PageTitle from "../components/sharedComponents/PageTitle";
 import UserImage from "../components/userDetailsPageComponents/userImage/UserImage";
 import UserInfo from "../components/userDetailsPageComponents/userInfo/UserInfo";
-import { FETCH_USER_API_BASE_URL } from "../context/constants/userConstants";
+import { fetchUserDetails } from "../context/actions/userActions";
 import "../style/userDetailsPageStyle/UserDetailsPage.css";
-import useAxios from "../utils/useAxios";
 
 function UserDetailsPage() {
   const { username } = useParams();
-  const { userData } = useAxios({
-    url: FETCH_USER_API_BASE_URL,
-    pagination: false,
-  });
-  // console.log(userData?.results);
+  const dispatch = useDispatch();
+  const userDetailsReducer = useSelector((state) => state.userDetailsReducer);
+  const { loading, userDetails, error } = userDetailsReducer;
+
+  useEffect(() => {
+    dispatch(fetchUserDetails(username));
+  }, [dispatch, username]);
 
   return (
     <FlexColumnLayout>
       <PageTitle title="User Details" />
 
-      {userData?.results?.map((user) => (
-        <main className="userDetailsPage" key={user?.login?.username}>
-          <UserImage picture={user?.picture} />
-          <UserInfo title="Name">
-            {user?.name?.title}. {user?.name?.first} {user?.name?.last}
-          </UserInfo>
-          <UserInfo title="Email">{user?.email}</UserInfo>
-          <UserInfo title="Age">{user?.dob?.age}</UserInfo>
-          <UserInfo title="Phone">{user?.phone}</UserInfo>
-          <UserInfo title="Address">
-            {user?.location?.street?.number} {user?.location?.street?.name},{" "}
-            {user?.location?.city}, {user?.location?.state},{" "}
-            {user?.location?.country}
-          </UserInfo>
-        </main>
-      ))}
+      {loading && <div>Loading...</div>}
+      {error && <strong>{error}</strong>}
+
+      <main className="userDetailsPage">
+        <UserImage picture={userDetails?.picture} />
+
+        <UserInfo title="Name">
+          {userDetails?.name?.title}. {userDetails?.name?.first}{" "}
+          {userDetails?.name?.last}
+        </UserInfo>
+        <UserInfo title="Username">{username}</UserInfo>
+        <UserInfo title="Email">{userDetails?.email}</UserInfo>
+        <UserInfo title="Age">{userDetails?.dob?.age}</UserInfo>
+        <UserInfo title="Phone">{userDetails?.phone}</UserInfo>
+        <UserInfo title="Address">
+          {userDetails?.location?.street?.number}{" "}
+          {userDetails?.location?.street?.name}, {userDetails?.location?.city},{" "}
+          {userDetails?.location?.state}, {userDetails?.location?.country}
+        </UserInfo>
+      </main>
     </FlexColumnLayout>
   );
 }

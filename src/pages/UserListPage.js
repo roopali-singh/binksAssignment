@@ -5,17 +5,17 @@ import PageTitle from "../components/sharedComponents/PageTitle";
 import FlexColumnLayout from "../components/sharedComponents/FlexColumnLayout";
 import Pagination from "../components/userListPageComponents/pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../context/actions/userActions";
+import { fetchUserList } from "../context/actions/userActions";
 
 function UserListPage() {
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const { loading, userData, error } = user;
+  const userListReducer = useSelector((state) => state.userListReducer);
+  const { loading, userList, error } = userListReducer;
 
   useEffect(() => {
-    dispatch(fetchUsers(page));
+    dispatch(fetchUserList(page));
   }, [dispatch, page]);
 
   return (
@@ -28,7 +28,7 @@ function UserListPage() {
       {error && <strong>{error}</strong>}
 
       <main className="userListPage__userList">
-        {userData?.map((user) => (
+        {userList?.map((user) => (
           <User
             key={user?.login?.username}
             name={user?.name}
