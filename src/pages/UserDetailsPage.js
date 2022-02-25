@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FlexColumnLayout from "../components/sharedComponents/FlexColumnLayout";
 import PageTitle from "../components/sharedComponents/PageTitle";
@@ -7,16 +7,36 @@ import UserImage from "../components/userDetailsPageComponents/userImage/UserIma
 import UserInfo from "../components/userDetailsPageComponents/userInfo/UserInfo";
 import { fetchUserDetails } from "../context/actions/userActions";
 import "../style/userDetailsPageStyle/UserDetailsPage.css";
+import { logout } from "../context/actions/adminActions";
+import Button from "../components/sharedComponents/Button";
 
 function UserDetailsPage() {
   const { username } = useParams();
   const dispatch = useDispatch();
+  const adminReducer = useSelector((state) => state.adminReducer);
+  const { admin } = adminReducer;
   const userDetailsReducer = useSelector((state) => state.userDetailsReducer);
   const { loading, userDetails, error } = userDetailsReducer;
 
+  const history = useHistory();
+
   useEffect(() => {
-    dispatch(fetchUserDetails(username));
-  }, [dispatch, username]);
+    if (admin) {
+      dispatch(fetchUserDetails(username));
+    } else {
+      dispatch(logout());
+    }
+  }, [dispatch, username, admin]);
+
+  useEffect(() => {
+    if (!admin) {
+      history.push("/");
+    }
+  }, [admin]);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <FlexColumnLayout>
@@ -45,6 +65,10 @@ function UserDetailsPage() {
           </UserInfo>
         </main>
       )}
+
+      <footer className="logoutBtn">
+        <Button title="LOGOUT" handleClick={logoutHandler} />
+      </footer>
     </FlexColumnLayout>
   );
 }

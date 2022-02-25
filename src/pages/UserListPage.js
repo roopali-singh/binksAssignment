@@ -6,17 +6,38 @@ import FlexColumnLayout from "../components/sharedComponents/FlexColumnLayout";
 import Pagination from "../components/userListPageComponents/pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserList } from "../context/actions/userActions";
+import { logout } from "../context/actions/adminActions";
+import { useHistory } from "react-router-dom";
+import Button from "../components/sharedComponents/Button";
 
 function UserListPage() {
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
+  const adminReducer = useSelector((state) => state.adminReducer);
+  const { admin } = adminReducer;
   const userListReducer = useSelector((state) => state.userListReducer);
   const { loading, userList, error } = userListReducer;
 
+  const history = useHistory();
+
   useEffect(() => {
-    dispatch(fetchUserList(page));
-  }, [dispatch, page]);
+    if (admin) {
+      dispatch(fetchUserList(page));
+    } else {
+      dispatch(logout());
+    }
+  }, [dispatch, page, admin]);
+
+  useEffect(() => {
+    if (!admin) {
+      history.push("/");
+    }
+  }, [admin]);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <FlexColumnLayout>
@@ -39,6 +60,10 @@ function UserListPage() {
           ))}
         </main>
       )}
+
+      <footer className="logoutBtn">
+        <Button title="LOGOUT" handleClick={logoutHandler} />
+      </footer>
     </FlexColumnLayout>
   );
 }

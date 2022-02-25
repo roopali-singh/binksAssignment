@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+import { adminReducer } from "./reducers/adminReducer";
 import { userListReducer, userDetailsReducer } from "./reducers/userReducer";
 
 const initialState = {
@@ -15,6 +16,13 @@ const initialState = {
     userDetails: {},
     error: false,
   },
+  adminReducer: {
+    loading: false,
+    admin: localStorage.getItem("binksAdmin")
+      ? localStorage.getItem("binksAdmin")
+      : false,
+    error: false,
+  },
 };
 
 // const reducer = (state, action) => {
@@ -24,6 +32,7 @@ const initialState = {
 const reducer = combineReducers({
   userListReducer: userListReducer,
   userDetailsReducer: userDetailsReducer,
+  adminReducer: adminReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
