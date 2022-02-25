@@ -66,9 +66,13 @@ function UserDetailsPage() {
         </main>
       )}
 
-      <footer className="logoutBtn">
-        <Button title="LOGOUT" handleClick={logoutHandler} />
-      </footer>
+      <button
+        className="logoutBtn btnPosition"
+        title="LOGOUT"
+        onClick={logoutHandler}
+      >
+        LOGOUT
+      </button>
     </FlexColumnLayout>
   );
 }

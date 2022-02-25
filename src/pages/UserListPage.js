@@ -45,9 +45,9 @@ function UserListPage() {
 
       <Pagination page={page} changePage={setPage} />
 
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : error ? (
+      {loading && <div>Loading...</div>}
+
+      {error ? (
         <h2>{error}</h2>
       ) : (
         <main className="userListPage__userList">
@@ -61,9 +61,13 @@ function UserListPage() {
         </main>
       )}
 
-      <footer className="logoutBtn">
-        <Button title="LOGOUT" handleClick={logoutHandler} />
-      </footer>
+      <button
+        className="logoutBtn btnPosition"
+        title="LOGOUT"
+        onClick={logoutHandler}
+      >
+        LOGOUT
+      </button>
     </FlexColumnLayout>
   );
 }
